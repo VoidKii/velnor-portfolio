@@ -1,27 +1,29 @@
 // Hook for detecting and respecting reduced motion preference
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useSyncExternalStore } from 'react';
+
+const reducedMotionQuery = '(prefers-reduced-motion: reduce)';
+
+function subscribeToReducedMotion(callback: () => void) {
+  const query = window.matchMedia(reducedMotionQuery);
+  query.addEventListener('change', callback);
+  return () => query.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia(reducedMotionQuery).matches;
+}
+
+function getServerReducedMotionSnapshot() {
+  return false;
+}
 
 export function useReducedMotion(): boolean {
-  const [reducedMotion, setReducedMotion] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const handler = (event: MediaQueryListEvent) => {
-      setReducedMotion(event.matches);
-    };
-
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  return reducedMotion;
+  return useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotionSnapshot,
+    getServerReducedMotionSnapshot,
+  );
 }
 
 export function useKonamiCode(callback: () => void): void {
