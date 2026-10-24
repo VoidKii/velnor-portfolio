@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, Copy } from 'lucide-react';
 import { terminalVariants } from '@/utils/animations';
 
-const TERMINAL_LINES = [
+const TERMINAL_LINES: TerminalLine[] = [
   { text: 'VELNOR_DIGITAL_UNIVERSE v1.0.0', type: 'header', delay: 0 },
   { text: 'Initializing quantum entanglement...', type: 'info', delay: 300 },
   { text: '[OK] Neural pathways established', type: 'success', delay: 600 },
