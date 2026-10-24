@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VELNOR Portfolio
 
-## Getting Started
+A responsive sci-fi portfolio for Velnor, built with Next.js, React, TypeScript, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Run locally
+
+Requirements: Node.js 22 or newer and npm.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+npm run lint
+npm run build
+```
 
-## Learn More
+## Customize
 
-To learn more about Next.js, take a look at the following resources:
+Portfolio content, public project links, and social links live in `src/data/portfolio.ts`. Update that file when a project becomes public or its status changes. Do not add private repository URLs, invented metrics, or demo links that are not live.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The animated star fields use deterministic seeds to render consistently during server rendering and browser hydration. The hidden terminal easter egg is triggered with the Konami code or the footer version label.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Import this repository into Vercel and use the default Next.js build settings. Confirm the checks above pass before treating a deployment as production-ready.
