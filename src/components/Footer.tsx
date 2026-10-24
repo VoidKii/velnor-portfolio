@@ -4,6 +4,7 @@
 'use client';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Heart, Code, Zap, Sparkles } from 'lucide-react';
 import { GithubIcon, YouTubeIcon, XIcon, LinkedInIcon, MailIcon } from './SocialIcons';
 import { getSocialLinks } from '@/data/portfolio';
@@ -11,7 +12,14 @@ import { fadeInUp } from '@/utils/animations';
 
 export function Footer() {
   const socialLinks = getSocialLinks();
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      setCurrentYear(new Date().getFullYear());
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
