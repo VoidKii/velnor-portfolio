@@ -5,7 +5,7 @@
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Heart, Code, Zap, Sparkles } from 'lucide-react';
-import { GithubIcon, XIcon, LinkedInIcon, MailIcon } from './SocialIcons';
+import { GithubIcon, YouTubeIcon, XIcon, LinkedInIcon, MailIcon } from './SocialIcons';
 import { getSocialLinks } from '@/data/portfolio';
 import { fadeInUp } from '@/utils/animations';
 
@@ -34,7 +34,7 @@ export function Footer() {
       <motion.div
         className="absolute top-0 left-0 w-1/3 h-1/3 rounded-full blur-[200px] pointer-events-none"
         style={{
-          background: 'radial-circle at center, rgba(101, 231, 255, 0.15), transparent 70%',
+          background: 'radial-gradient(circle at center, rgba(101, 231, 255, 0.15), transparent 70%)',
           x: glowX,
           y: glowY,
         }}
@@ -43,7 +43,7 @@ export function Footer() {
       <motion.div
         className="absolute bottom-0 right-0 w-1/3 h-1/3 rounded-full blur-[200px] pointer-events-none"
         style={{
-          background: 'radial-circle at center, rgba(184, 255, 106, 0.1), transparent 70%',
+          background: 'radial-gradient(circle at center, rgba(184, 255, 106, 0.1), transparent 70%)',
           x: useTransform(mouseX, [0, 1], ['80%', '20%']),
           y: useTransform(mouseY, [0, 1], ['80%', '20%']),
         }}
@@ -132,6 +132,7 @@ export function Footer() {
                   aria-label={`${link.name}: ${link.description}`}
                 >
                   {link.icon === 'github' && <GithubIcon size={16} />}
+                  {link.icon === 'youtube' && <YouTubeIcon size={16} />}
                   {link.icon === 'twitter' && <XIcon size={16} />}
                   {link.icon === 'linkedin' && <LinkedInIcon size={16} />}
                   {link.icon === 'mail' && <MailIcon size={16} />}
@@ -146,7 +147,7 @@ export function Footer() {
         <motion.div
           className="relative mb-8"
           variants={fadeInUp}
-          style={{ transitionDelay: '0.2' }}
+          style={{ transitionDelay: '0.2s' }}
         >
           <div className="flex items-center gap-4">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent" />
@@ -159,14 +160,13 @@ export function Footer() {
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-between gap-4"
           variants={fadeInUp}
-          style={{ transitionDelay: '0.3' }}
+          style={{ transitionDelay: '0.3s' }}
         >
           <p className="text-sm text-slate-500 text-center sm:text-left">
             © {currentYear} VELNOR. All rights reserved.
             <span className="hidden sm:inline mx-2">·</span>
             <span className="font-mono text-cyan-400">Built with Next.js</span>
-            <span className="hidden sm:inline mx-2">·</span>
-            <span className="font-mono text-lime-400">Deployed on Vercel</span>
+
           </p>
 
           {/* Easter egg trigger - click the version */}
@@ -182,7 +182,7 @@ export function Footer() {
           >
             <span className="font-mono">v1.0.0</span>
             <span className="hidden sm:inline">·</span>
-            <span className="font-mono">Next.js 15</span>
+            <span className="font-mono">Next.js 16</span>
             <span className="hidden sm:inline">·</span>
             <span className="font-mono">React 19</span>
             <span className="hidden sm:inline">·</span>
