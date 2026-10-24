@@ -1,0 +1,42 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080B12"/>
+      <stop offset="50%" stop-color="#0a0f1a"/>
+      <stop offset="100%" stop-color="#080B12"/>
+    </linearGradient>
+    <linearGradient id="orbital" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#65E7FF"/>
+      <stop offset="50%" stop-color="#B8FF6A"/>
+      <stop offset="100%" stop-color="#65E7FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#65E7FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#65E7FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Orbital rings -->
+  <circle cx="600" cy="315" r="280" fill="none" stroke="url(#orbital)" stroke-width="1" stroke-dasharray="20 40" opacity="0.15"/>
+  <circle cx="600" cy="315" r="200" fill="none" stroke="#65E7FF" stroke-width="0.5" stroke-dasharray="30 60" opacity="0.1"/>
+  <circle cx="600" cy="315" r="120" fill="none" stroke="#B8FF6A" stroke-width="0.5" stroke-dasharray="15 30" opacity="0.08"/>
+
+  <!-- Central glow -->
+  <circle cx="600" cy="315" r="150" fill="url(#glow)"/>
+
+  <!-- Brand text -->
+  <text x="600" y="280" font-family="Space Grotesk, sans-serif" font-size="72" font-weight="700" fill="#F1F5F9" text-anchor="middle" letter-spacing="4">VELNOR</text>
+  <text x="600" y="350" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="400" fill="#65E7FF" text-anchor="middle" letter-spacing="8">DIGITAL UNIVERSES</text>
+
+  <!-- Tagline -->
+  <text x="600" y="420" font-family="Space Grotesk, sans-serif" font-size="18" font-weight="400" fill="#94A3B8" text-anchor="middle">Creative Developer & Digital Architect</text>
+
+  <!-- Decorative elements -->
+  <circle cx="200" cy="150" r="3" fill="#65E7FF" opacity="0.6"/>
+  <circle cx="1000" cy="480" r="2" fill="#B8FF6A" opacity="0.5"/>
+  <circle cx="150" cy="500" r="2" fill="#65E7FF" opacity="0.4"/>
+  <circle cx="1050" cy="100" r="3" fill="#B8FF6A" opacity="0.5"/>
+</svg>

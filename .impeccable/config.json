@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/app/globals.css"
+        ],
+        "createdAt": "2026-10-24T14:55:42.816Z",
+        "reason": "Intentional brand gradient utilities for VELNOR sci-fi theme; used only on logo/headline accents, not body text. Solid colors enforced for body text via CSS rule."
+      }
+    ]
+  }
+}
