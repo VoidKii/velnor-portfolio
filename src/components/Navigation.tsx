@@ -13,11 +13,14 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [scrollProgress, setScrollProgress] = useState(0);
   const navItems = getNavigationItems();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0);
 
       // Update active section based on scroll position
       const sections = ['home', 'projects', 'about', 'social'];
@@ -34,8 +37,11 @@ export function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    const initialFrame = window.requestAnimationFrame(handleScroll);
+    return () => {
+      window.cancelAnimationFrame(initialFrame);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
@@ -52,8 +58,8 @@ export function Navigation() {
       {/* Progress indicator */}
       <motion.div
         className="fixed top-0 left-0 h-0.5 z-50 bg-gradient-to-r from-cyan-400 to-lime-400"
-        style={{ width: `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
-        animate={{ width: `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
+        style={{ width: `${scrollProgress}%` }}
+        animate={{ width: `${scrollProgress}%` }}
         transition={{ duration: 0.1, ease: 'linear' }}
         aria-hidden="true"
       />

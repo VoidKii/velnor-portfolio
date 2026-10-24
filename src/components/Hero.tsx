@@ -9,37 +9,21 @@ import { ArrowRight, MousePointer, Keyboard } from 'lucide-react';
 import { OrbitalCenterpiece } from './OrbitalCenterpiece';
 import { fadeInUp, staggerContainer, staggerItem } from '@/utils/animations';
 import { portfolioData } from '@/data/portfolio';
-
-interface Star {
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  delay: number;
-  duration: number;
-  color: string;
-}
-
-function generateStars(count: number): Star[] {
-  const stars: Star[] = [];
-  for (let i = 0; i < count; i++) {
-    stars.push({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 1.5 + 0.5,
-      opacity: Math.random() * 0.5 + 0.15,
-      delay: Math.random() * 4,
-      duration: Math.random() * 3 + 2,
-      color: Math.random() > 0.8 ? '#B8FF6A' : '#65E7FF',
-    });
-  }
-  return stars;
-}
+import { generateStars } from '@/utils/stars';
 
 const STAR_COUNT = 100;
 
 function Starfield() {
-  const stars = useMemo(() => generateStars(STAR_COUNT), []);
+  const stars = useMemo(() => generateStars(STAR_COUNT, 0x0e1a0, {
+    minSize: 0.5,
+    maxSize: 2,
+    minOpacity: 0.15,
+    maxOpacity: 0.65,
+    maxDelay: 4,
+    minDuration: 2,
+    maxDuration: 5,
+    accentChance: 0.2,
+  }), []);
 
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ zIndex: -1 }}>
@@ -48,8 +32,8 @@ function Starfield() {
         className="absolute inset-0"
         style={{
           background: `
-            radial-circle at 10% 20%, rgba(101, 231, 255, 0.05) 0%, transparent 50%,
-            radial-circle at 90% 80%, rgba(184, 255, 106, 0.03) 0%, transparent 50%,
+            radial-gradient(circle at 10% 20%, rgba(101, 231, 255, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 90% 80%, rgba(184, 255, 106, 0.03) 0%, transparent 50%),
             #080B12
           `,
         }}
@@ -69,7 +53,7 @@ function Starfield() {
         <circle cx="50%" cy="50%" r="28%" fill="none" stroke="url(#bgOrbital)" strokeWidth="0.25%" strokeDasharray="3% 6%" />
       </svg>
 
-      {stars.map((star: Star, i: number) => (
+      {stars.map((star, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full"

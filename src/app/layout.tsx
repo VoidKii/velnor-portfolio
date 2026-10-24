@@ -18,10 +18,10 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "VELNOR | Creative Developer & Digital Architect",
+    default: "VELNOR | Creator & Builder",
     template: "%s | VELNOR",
   },
-  description: "Building immersive web experiences that blur the line between code and art. From interactive narratives to experimental interfaces, I craft digital worlds that leave a mark.",
+  description: "A creator exploring AI tools, web development, and creative technology through real projects and experiments.",
   keywords: [
     "creative developer",
     "digital artist",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "framer motion",
     "portfolio",
   ],
-  authors: [{ name: "VELNOR", url: "https://velnor.dev" }],
+  authors: [{ name: "VELNOR" }],
   creator: "VELNOR",
   publisher: "VELNOR",
   robots: {
@@ -51,13 +51,12 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://velnor.dev",
-    title: "VELNOR | Creative Developer & Digital Architect",
-    description: "Building immersive web experiences that blur the line between code and art.",
+    title: "VELNOR | Creator & Builder",
+    description: "A creator exploring AI tools, web development, and creative technology through real projects and experiments.",
     siteName: "VELNOR Portfolio",
     images: [
       {
-        url: "/og-image.webp",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "VELNOR Portfolio - Creative Developer & Digital Architect",
@@ -66,10 +65,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "VELNOR | Creative Developer & Digital Architect",
+    title: "VELNOR | Creator & Builder",
     description: "Building immersive web experiences that blur the line between code and art.",
-    images: ["/og-image.webp"],
-    creator: "@velnor",
+    images: ["/og-image.svg"],
+    creator: "@velnor404",
   },
   icons: {
     icon: "/favicon.svg",

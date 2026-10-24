@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal as TerminalIcon, X, Copy } from 'lucide-react';
 import { terminalVariants } from '@/utils/animations';
 
-const TERMINAL_LINES = [
+const TERMINAL_LINES: TerminalLine[] = [
   { text: 'VELNOR_DIGITAL_UNIVERSE v1.0.0', type: 'header', delay: 0 },
   { text: 'Initializing quantum entanglement...', type: 'info', delay: 300 },
   { text: '[OK] Neural pathways established', type: 'success', delay: 600 },
@@ -99,59 +99,57 @@ export function Terminal() {
     };
   }, []);
 
-  // Terminal typing animation
+  // Terminal typing animation. Timers are cancelled when the terminal closes or unmounts.
   useEffect(() => {
-    if (!isOpen) {
-      // Defer state reset to avoid synchronous setState in effect
-      setTimeout(() => {
-        setVisibleLines([]);
-        setIsTyping(false);
-        setShowCursor(false);
-      }, 0);
-      return;
-    }
+    if (!isOpen) return;
 
     let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
-    const typeLines = async () => {
-      setIsTyping(true);
-      setVisibleLines([]);
-      setShowCursor(false);
-
-      for (let i = 0; i < TERMINAL_LINES.length; i++) {
-        if (cancelled || !isOpen) break;
-
-        const line = TERMINAL_LINES[i];
-
-        // Wait for the line's delay
-        const waitTime = line.delay - (i > 0 ? TERMINAL_LINES[i - 1].delay : 0);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
-
-        if (cancelled || !isOpen) break;
-
-        setVisibleLines(prev => [...prev, line]);
-
-        // Scroll to bottom
-        if (terminalRef.current) {
-          terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-        }
-      }
-
-      if (!cancelled) {
-        setIsTyping(false);
-        setShowCursor(true);
-      }
+    const schedule = (callback: () => void, delay: number) => {
+      timer = setTimeout(() => {
+        if (!cancelled) callback();
+      }, delay);
     };
 
-    typeLines();
+    const appendLine = (index: number) => {
+      if (cancelled) return;
+
+      const line = TERMINAL_LINES[index];
+      setVisibleLines((previous) => [...previous, line]);
+
+      if (terminalRef.current) {
+        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+      }
+
+      if (index === TERMINAL_LINES.length - 1) {
+        setIsTyping(false);
+        setShowCursor(true);
+        return;
+      }
+
+      const nextLine = TERMINAL_LINES[index + 1];
+      schedule(() => appendLine(index + 1), nextLine.delay - line.delay);
+    };
+
+    // Defer initial state updates out of the effect's synchronous phase.
+    schedule(() => {
+      setVisibleLines([]);
+      setIsTyping(true);
+      setShowCursor(false);
+      schedule(() => appendLine(0), TERMINAL_LINES[0].delay);
+    }, 0);
 
     return () => {
       cancelled = true;
+      if (timer) clearTimeout(timer);
     };
   }, [isOpen]);
 
   const handleClose = () => {
     setIsOpen(false);
+    setVisibleLines([]);
+    setIsTyping(false);
     setShowCursor(false);
   };
 

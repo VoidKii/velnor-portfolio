@@ -4,12 +4,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, ExternalLink, Users, MessageCircle } from 'lucide-react';
+import type { ComponentType, SVGProps } from 'react';
+import { Play, ExternalLink } from 'lucide-react';
 import { GithubIcon, XIcon, LinkedInIcon, YouTubeIcon, MailIcon } from './SocialIcons';
 import { getSocialLinks } from '@/data/portfolio';
 import { fadeInUp, staggerContainer, cardHover, hoverScale, tapScale } from '@/utils/animations';
 
-const socialIcons: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+type SocialIcon = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>;
+
+const socialIcons: Record<string, SocialIcon> = {
   github: GithubIcon,
   youtube: YouTubeIcon,
   twitter: XIcon,
@@ -74,7 +77,7 @@ function SocialCard({ link, index }: SocialCardProps) {
       >
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: `radial-circle at center, ${color}40, transparent 70%` }}
+          style={{ background: `radial-gradient(circle at center, ${color}40, transparent 70%)` }}
         />
         <Icon
           size={28}
@@ -156,7 +159,7 @@ export function Social() {
         <motion.div
           className="mt-16 max-w-4xl mx-auto"
           variants={fadeInUp}
-          style={{ transitionDelay: '0.3' }}
+          style={{ transitionDelay: '0.3s' }}
         >
           <div className="relative bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-800 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 via-transparent to-cyan-400/10" />
@@ -176,35 +179,15 @@ export function Social() {
               <div className="text-center lg:text-left flex-1">
                 <p className="text-sm font-mono text-red-400 tracking-widest uppercase mb-2">YouTube Channel</p>
                 <h3 className="text-2xl lg:text-3xl font-bold text-slate-50 mb-3">
-                  Deep Dives & Creative Coding Tutorials
+                  Gaming, Edits & Experiments
                 </h3>
                 <p className="text-slate-400 mb-6 max-w-xl">
-                  Weekly videos exploring generative art, creative coding techniques,
-                  WebGL shaders, and the craft of building digital experiences.
+                  Gaming moments, creative edits, and projects from the Velnor creator journey.
                 </p>
-
-                {/* Stats */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mb-6">
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <Users size={18} />
-                    <span className="font-mono text-cyan-400">12.4K</span>
-                    <span className="text-slate-600">Subscribers</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <Play size={18} />
-                    <span className="font-mono text-cyan-400">47</span>
-                    <span className="text-slate-600">Videos</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400">
-                    <MessageCircle size={18} />
-                    <span className="font-mono text-cyan-400">2.1K</span>
-                    <span className="text-slate-600">Comments</span>
-                  </div>
-                </div>
 
                 {/* CTA */}
                 <motion.a
-                  href="https://youtube.com/@velnor"
+                  href="https://youtube.com/channel/UCnRSqu1782SwFSKWZcXT-Vw"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-500 transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,0,0,0.3)]"
@@ -233,37 +216,35 @@ export function Social() {
           </div>
         </motion.div>
 
-        {/* Newsletter / Contact CTA */}
+        {/* A real destination instead of a non-functional newsletter form */}
         <motion.div
           className="mt-16 text-center"
           variants={fadeInUp}
-          style={{ transitionDelay: '0.4' }}
+          style={{ transitionDelay: '0.4s' }}
         >
           <div className="relative p-8 lg:p-12 bg-gradient-to-br from-slate-900/50 to-slate-950/50 rounded-2xl border border-slate-800">
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 via-transparent to-lime-400/5" />
-            <p className="relative text-sm font-mono text-cyan-400 tracking-widest uppercase mb-3">Stay Updated</p>
+            <p className="relative text-sm font-mono text-cyan-400 tracking-widest uppercase mb-3">Building in Public</p>
             <h3 className="relative text-2xl lg:text-3xl font-bold text-slate-50 mb-4">
-              Never Miss an Experiment
+              Follow the next experiment.
             </h3>
             <p className="relative text-slate-400 mb-6 max-w-md mx-auto">
-              Occasional updates on new projects, articles, and experiments. No spam, unsubscribe anytime.
+              Explore the source and current work in progress on GitHub.
             </p>
-            <form className="relative flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-slate-100 placeholder-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all"
-                aria-label="Email address"
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-cyan-400 text-slate-950 font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(101,231,255,0.3)] transition-all"
-              >
-                Subscribe
-              </button>
-            </form>
+            <motion.a
+              href="https://github.com/VoidKii"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center gap-2 px-6 py-3 bg-cyan-400 text-slate-950 font-semibold rounded-lg hover:shadow-[0_0_30px_rgba(101,231,255,0.3)] transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <ExternalLink size={18} />
+              Explore GitHub
+            </motion.a>
           </div>
         </motion.div>
+
       </div>
     </section>
   );

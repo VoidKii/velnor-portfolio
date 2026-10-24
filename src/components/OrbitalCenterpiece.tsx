@@ -123,7 +123,8 @@ export function OrbitalCenterpiece({ className = '', 'aria-label': ariaLabel = '
       onMouseLeave={handleMouseLeave}
       onKeyDown={handleKeyDown}
       style={{ willChange: 'transform', outline: 'none' }}
-      whileHover={glowPulse.animate}
+      variants={glowPulse}
+      whileHover="animate"
     >
       {/* Outer glow ring */}
       <motion.div
@@ -135,8 +136,9 @@ export function OrbitalCenterpiece({ className = '', 'aria-label': ariaLabel = '
             inset 0 0 60px 20px rgba(101, 231, 255, 0.03)
           `,
         }}
-        animate={orbitalRing.animate}
-        transition={orbitalRing.transition}
+        variants={orbitalRing}
+        initial="initial"
+        animate="animate"
       />
 
       <svg className="w-full h-full" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
@@ -181,8 +183,9 @@ export function OrbitalCenterpiece({ className = '', 'aria-label': ariaLabel = '
             transformOrigin: '200px 200px',
             willChange: 'transform, filter',
           }}
-          animate={orbitalPulse.animate}
-          transition={orbitalPulse.transition}
+          variants={orbitalPulse}
+          initial="initial"
+          animate="animate"
           x={orbitOffsetX}
           y={orbitOffsetY}
         />
@@ -216,8 +219,9 @@ export function OrbitalCenterpiece({ className = '', 'aria-label': ariaLabel = '
           strokeDasharray="8 16"
           opacity={0.25}
           style={{ transformOrigin: '200px 200px', willChange: 'transform' }}
-          animate={orbitalRotate.animate}
-          transition={orbitalRotate.transition}
+          variants={orbitalRotate}
+          initial="initial"
+          animate="animate"
         />
         <motion.circle
           cx="200"
@@ -244,7 +248,7 @@ export function OrbitalCenterpiece({ className = '', 'aria-label': ariaLabel = '
           strokeDasharray="16 32"
           opacity={0.12}
           style={{ transformOrigin: '200px 200px', willChange: 'transform' }}
-          animate={orbitalRotate.animate}
+          animate={{ rotate: 360 }}
           transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
         />
 
@@ -353,34 +357,30 @@ function OrbitingBody({
   const centerY = 200 + Math.sin(angleRad) * radius;
 
   return (
-    <g style={{ transformOrigin: '200px 200px', willChange: 'transform' }}>
-      <motion.circle
+    <motion.g
+      animate={{ rotate: reverse ? -360 : 360 }}
+      transition={{ duration: speed, repeat: Infinity, ease: 'linear' }}
+      x={orbitOffsetX}
+      y={orbitOffsetY}
+      style={{ transformOrigin: '200px 200px', willChange: 'transform' }}
+    >
+      <circle
         cx={centerX}
         cy={centerY}
         r={planetSize}
         fill={`url(#${glowId})`}
         filter="url(#glowBlur)"
-        animate={{
-          rotate: reverse ? -360 : 360,
-        }}
-        transition={{ duration: speed, repeat: Infinity, ease: 'linear' }}
-        x={orbitOffsetX}
-        y={orbitOffsetY}
-        style={{ transformOrigin: '200px 200px', willChange: 'transform' }}
-      >
-        <motion.circle
-          cx={centerX}
-          cy={centerY}
-          r={coreSize}
-          fill={coreColor}
-          style={{ transformOrigin: `${centerX}px ${centerY}px`, willChange: 'transform' }}
-          animate={{
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: speed / 2, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </motion.circle>
-    </g>
+      />
+      <motion.circle
+        cx={centerX}
+        cy={centerY}
+        r={coreSize}
+        fill={coreColor}
+        style={{ transformOrigin: `${centerX}px ${centerY}px`, willChange: 'transform' }}
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: speed / 2, repeat: Infinity, ease: 'easeInOut' }}
+      />
+    </motion.g>
   );
 }
 
