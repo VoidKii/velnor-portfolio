@@ -1,6 +1,6 @@
 // Animation utilities and variants for VELNOR
 
-import { Variants, Transition } from 'framer-motion';
+import type { TargetAndTransition, Variants } from 'framer-motion';
 
 // Respects prefers-reduced-motion
 export const getReducedMotion = (): boolean => {
@@ -166,22 +166,22 @@ export const scrollRevealRight: Variants = {
 };
 
 // Hover/tap variants for interactive elements
-export const hoverScale: Transition = {
+export const hoverScale: TargetAndTransition = {
   scale: 1.02,
   transition: { duration: 0.2, ease: 'easeOut' },
 };
 
-export const hoverScaleSmall: Transition = {
+export const hoverScaleSmall: TargetAndTransition = {
   scale: 1.01,
   transition: { duration: 0.15, ease: 'easeOut' },
 };
 
-export const tapScale: Transition = {
+export const tapScale: TargetAndTransition = {
   scale: 0.98,
   transition: { duration: 0.1, ease: 'easeOut' },
 };
 
-export const focusRing: Transition = {
+export const focusRing: TargetAndTransition = {
   boxShadow: '0 0 0 3px rgba(101, 231, 255, 0.5)',
   transition: { duration: 0.2 },
 };
