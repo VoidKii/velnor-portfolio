@@ -37,8 +37,11 @@ export function Navigation() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
-    return () => window.removeEventListener('scroll', handleScroll);
+    const initialFrame = window.requestAnimationFrame(handleScroll);
+    return () => {
+      window.cancelAnimationFrame(initialFrame);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollToSection = (href: string) => {
