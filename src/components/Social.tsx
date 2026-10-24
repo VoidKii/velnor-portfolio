@@ -4,12 +4,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import type { ComponentType, SVGProps } from 'react';
 import { Play, ExternalLink } from 'lucide-react';
 import { GithubIcon, XIcon, LinkedInIcon, YouTubeIcon, MailIcon } from './SocialIcons';
 import { getSocialLinks } from '@/data/portfolio';
 import { fadeInUp, staggerContainer, cardHover, hoverScale, tapScale } from '@/utils/animations';
 
-const socialIcons: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+type SocialIcon = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>;
+
+const socialIcons: Record<string, SocialIcon> = {
   github: GithubIcon,
   youtube: YouTubeIcon,
   twitter: XIcon,
