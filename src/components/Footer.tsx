@@ -17,6 +17,8 @@ export function Footer() {
 
   const glowX = useTransform(mouseX, [0, 1], ['20%', '80%']);
   const glowY = useTransform(mouseY, [0, 1], ['20%', '80%']);
+  const inverseGlowX = useTransform(mouseX, [0, 1], ['80%', '20%']);
+  const inverseGlowY = useTransform(mouseY, [0, 1], ['80%', '20%']);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -44,8 +46,8 @@ export function Footer() {
         className="absolute bottom-0 right-0 w-1/3 h-1/3 rounded-full blur-[200px] pointer-events-none"
         style={{
           background: 'radial-gradient(circle at center, rgba(184, 255, 106, 0.1), transparent 70%)',
-          x: useTransform(mouseX, [0, 1], ['80%', '20%']),
-          y: useTransform(mouseY, [0, 1], ['80%', '20%']),
+          x: inverseGlowX,
+          y: inverseGlowY,
         }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
       />
